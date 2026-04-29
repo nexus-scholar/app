@@ -7585,12 +7585,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/nexus-scholar/core.git",
-                "reference": "f0e600469f7ff311382459d751e1c288277f4683"
+                "reference": "af4524cdd73a488260cae5284619ae55e4b60afc"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/nexus-scholar/core/zipball/f0e600469f7ff311382459d751e1c288277f4683",
-                "reference": "f0e600469f7ff311382459d751e1c288277f4683",
+                "url": "https://api.github.com/repos/nexus-scholar/core/zipball/af4524cdd73a488260cae5284619ae55e4b60afc",
+                "reference": "af4524cdd73a488260cae5284619ae55e4b60afc",
                 "shasum": ""
             },
             "require": {
@@ -7627,7 +7627,7 @@
                 "issues": "https://github.com/nexus-scholar/core/issues",
                 "source": "https://github.com/nexus-scholar/core/tree/master"
             },
-            "time": "2026-04-28T10:27:54+00:00"
+            "time": "2026-04-29T16:57:16+00:00"
         },
         {
             "name": "nunomaduro/collision",
