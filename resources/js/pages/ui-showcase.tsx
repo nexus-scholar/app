@@ -1,201 +1,347 @@
-import { useState } from "react"
-import { Button } from "@/components/ui/button"
-import { Input } from "@/components/ui/input"
-import { Textarea } from "@/components/ui/textarea"
-import { Chip } from "@/components/ui/chip"
-import { Tooltip, TooltipTrigger, TooltipContent, TooltipProvider } from "@/components/ui/tooltip"
-import { Select, SelectTrigger, SelectValue, SelectContent, SelectItem, SelectLabel } from "@/components/ui/select"
-import { Checkbox } from "@/components/ui/checkbox"
+import {
+    AlertCircleIcon,
+    CheckIcon,
+    InfoIcon,
+    SparklesIcon,
+} from 'lucide-react';
+import { useState } from 'react';
 
-export default function UIShowcase() {
-  const [checkboxChecked, setCheckboxChecked] = useState(false)
-  const [selectValue, setSelectValue] = useState("")
+import { Badge } from '@/components/ui/badge';
+import { Banner } from '@/components/ui/banner';
+import { Button } from '@/components/ui/button';
+import { Checkbox } from '@/components/ui/checkbox';
+import { Chip } from '@/components/ui/chip';
+import { Drawer } from '@/components/ui/drawer';
+import { Input } from '@/components/ui/input';
+import { Modal } from '@/components/ui/modal';
+import {
+    Select,
+    SelectContent,
+    SelectItem,
+    SelectTrigger,
+    SelectValue,
+} from '@/components/ui/select';
+import { Skeleton } from '@/components/ui/skeleton';
+import { Textarea } from '@/components/ui/textarea';
+import {
+    Tooltip,
+    TooltipContent,
+    TooltipProvider,
+    TooltipTrigger,
+} from '@/components/ui/tooltip';
 
-  return (
-    <div className="space-y-8 p-8">
-      <h1 className="text-2xl font-bold">UI Atoms Showcase</h1>
+function UIShowcase() {
+    const [selectValue, setSelectValue] = useState('');
+    const [checkboxChecked, setCheckboxChecked] = useState(false);
+    const [modalOpen, setModalOpen] = useState(false);
+    const [drawerOpen, setDrawerOpen] = useState(false);
+    const [dismissedBanner, setDismissedBanner] = useState(false);
+    const [dismissedChip, setDismissedChip] = useState(false);
 
-      <section>
-        <h2 className="text-lg font-semibold mb-4">Buttons</h2>
-        <div className="flex flex-wrap gap-4">
-          {/* Variants */}
-          <div className="space-y-2">
-            <h3 className="font-medium">Variants</h3>
-            <div className="flex flex-wrap gap-2">
-              <Button variant="default">Default</Button>
-              <Button variant="destructive">Destructive</Button>
-              <Button variant="outline">Outline</Button>
-              <Button variant="secondary">Secondary</Button>
-              <Button variant="ghost">Ghost</Button>
-              <Button variant="link">Link</Button>
-            </div>
-          </div>
+    return (
+        <div className="space-y-10 p-8">
+            <section className="space-y-4">
+                <div>
+                    <h1 className="text-2xl font-semibold">
+                        NexusScholar UI Showcase
+                    </h1>
+                    <p className="text-sm text-muted-foreground">
+                        Atoms and molecules rendered with the shared
+                        shadcn-style registry.
+                    </p>
+                </div>
 
-          {/* Sizes */}
-          <div className="space-y-2 mt-6">
-            <h3 className="font-medium">Sizes</h3>
-            <div className="flex flex-wrap gap-2">
-              <Button size="icon" variant="default" aria-label="Icon button">
-                <svg className="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
-                </svg>
-              </Button>
-              <Button size="sm">Small</Button>
-              <Button size="default">Default</Button>
-              <Button size="lg">Large</Button>
-            </div>
-          </div>
+                <div className="flex flex-wrap gap-2">
+                    <Button>Primary</Button>
+                    <Button variant="secondary">Secondary</Button>
+                    <Button variant="ghost">Ghost</Button>
+                    <Button variant="destructive">Destructive</Button>
+                    <Button
+                        loading
+                        startIcon={<SparklesIcon className="size-4" />}
+                    >
+                        Loading
+                    </Button>
+                    <Button
+                        disabled
+                        startIcon={<CheckIcon className="size-4" />}
+                    >
+                        Disabled
+                    </Button>
+                    <Button
+                        size="icon"
+                        aria-label="Icon button"
+                        startIcon={<InfoIcon className="size-4" />}
+                    />
+                </div>
+            </section>
 
-          {/* States */}
-          <div className="space-y-2 mt-6">
-            <h3 className="font-medium">States</h3>
-            <div className="flex flex-wrap gap-2">
-              <Button variant="default" disabled>
-                Disabled
-              </Button>
-              <Button variant="default" className="relative">
-                Loading
-                <span className="absolute inset-0 flex items-center justify-center animate-spin">
-                  <svg className="h-4 w-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
-                    <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v8z"></path>
-                  </svg>
-                </span>
-              </Button>
-              <Button variant="default" className="relative" aria-label="Button with icon">
-                <span>With Icon</span>
-                <svg className="h-4 w-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7 7-7-7"></path>
-                </svg>
-              </Button>
-            </div>
-          </div>
+            <section className="grid gap-6 lg:grid-cols-2">
+                <div className="space-y-4 rounded-xl border p-6">
+                    <h2 className="text-lg font-medium">Inputs</h2>
+                    <div className="space-y-4">
+                        <Input
+                            placeholder="Project name"
+                            defaultValue="Living systematic review"
+                        />
+                        <Input
+                            placeholder="Validation error"
+                            error="Project name is required."
+                        />
+                        <Input
+                            placeholder="Disabled input"
+                            disabled
+                            defaultValue="Read only"
+                        />
+                        <Textarea
+                            placeholder="Review question"
+                            hint="Use a concise question sentence."
+                            defaultValue="Does the intervention improve outcomes?"
+                        />
+                        <Textarea
+                            placeholder="Error textarea"
+                            error="Please add at least 20 characters."
+                        />
+                    </div>
+                </div>
+
+                <div className="space-y-4 rounded-xl border p-6">
+                    <h2 className="text-lg font-medium">Select and checkbox</h2>
+                    <div className="space-y-4">
+                        <Select
+                            value={selectValue}
+                            onValueChange={setSelectValue}
+                        >
+                            <SelectTrigger
+                                hint="Choose the current review stage."
+                                error={
+                                    selectValue
+                                        ? undefined
+                                        : 'Select a stage before continuing.'
+                                }
+                            >
+                                <SelectValue placeholder="Review stage" />
+                            </SelectTrigger>
+                            <SelectContent>
+                                <SelectItem value="draft">Draft</SelectItem>
+                                <SelectItem value="search">
+                                    Active search
+                                </SelectItem>
+                                <SelectItem value="locked">
+                                    Corpus locked
+                                </SelectItem>
+                            </SelectContent>
+                        </Select>
+
+                        <div className="flex items-start gap-3">
+                            <Checkbox
+                                checked={checkboxChecked}
+                                onCheckedChange={(value) =>
+                                    setCheckboxChecked(value === true)
+                                }
+                                error={
+                                    checkboxChecked
+                                        ? undefined
+                                        : 'Please acknowledge the latest provider failure.'
+                                }
+                            />
+                            <div className="space-y-1">
+                                <p className="text-sm leading-none font-medium">
+                                    I acknowledge the latest provider failure.
+                                </p>
+                                <p className="text-sm text-muted-foreground">
+                                    This is shown as an inline checkbox error
+                                    state.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section className="space-y-4 rounded-xl border p-6">
+                <h2 className="text-lg font-medium">Badges and chips</h2>
+                <div className="flex flex-wrap gap-2">
+                    <Badge
+                        variant="info"
+                        icon={<InfoIcon className="size-3" />}
+                    >
+                        Info
+                    </Badge>
+                    <Badge
+                        variant="success"
+                        icon={<CheckIcon className="size-3" />}
+                    >
+                        Success
+                    </Badge>
+                    <Badge
+                        variant="warning"
+                        icon={<AlertCircleIcon className="size-3" />}
+                    >
+                        Warning
+                    </Badge>
+                    <Badge
+                        variant="error"
+                        icon={<AlertCircleIcon className="size-3" />}
+                    >
+                        Error
+                    </Badge>
+                    <Badge variant="muted">Muted</Badge>
+                    <Chip variant="info" icon={<InfoIcon className="size-3" />}>
+                        Standalone chip
+                    </Chip>
+                    {!dismissedChip ? (
+                        <Chip
+                            variant="success"
+                            icon={<CheckIcon className="size-3" />}
+                            onDismiss={() => setDismissedChip(true)}
+                        >
+                            Dismissible chip
+                        </Chip>
+                    ) : (
+                        <Button
+                            variant="ghost"
+                            onClick={() => setDismissedChip(false)}
+                        >
+                            Reset chip
+                        </Button>
+                    )}
+                </div>
+            </section>
+
+            <section className="space-y-4 rounded-xl border p-6">
+                <div className="flex items-center justify-between gap-4">
+                    <div>
+                        <h2 className="text-lg font-medium">
+                            Banners and skeletons
+                        </h2>
+                        <p className="text-sm text-muted-foreground">
+                            Severity states, dismissibility, and loading
+                            placeholders.
+                        </p>
+                    </div>
+                    <Button
+                        variant="outline"
+                        onClick={() => setDismissedBanner(false)}
+                    >
+                        Reset banner
+                    </Button>
+                </div>
+
+                <div className="space-y-3">
+                    {!dismissedBanner ? (
+                        <Banner
+                            severity="warning"
+                            title="Provider failure detected"
+                            dismissible
+                            onDismiss={() => setDismissedBanner(true)}
+                        >
+                            The latest search run included a soft provider
+                            failure. You can continue, but the lock flow will
+                            require acknowledgement.
+                        </Banner>
+                    ) : null}
+                    <Banner severity="success" title="Corpus locked">
+                        This banner demonstrates the success severity state.
+                    </Banner>
+                    <Banner severity="error" title="Export blocked">
+                        Required data is missing for the selected export format.
+                    </Banner>
+                    <div className="grid gap-3 md:grid-cols-3">
+                        <Skeleton className="h-24 w-full" />
+                        <Skeleton className="h-24 w-full" />
+                        <Skeleton className="h-24 w-full" />
+                    </div>
+                </div>
+            </section>
+
+            <section className="grid gap-6 lg:grid-cols-2">
+                <div className="space-y-4 rounded-xl border p-6">
+                    <h2 className="text-lg font-medium">Tooltip</h2>
+                    <TooltipProvider>
+                        <Tooltip>
+                            <TooltipTrigger asChild>
+                                <Button variant="outline">
+                                    Hover or focus me
+                                </Button>
+                            </TooltipTrigger>
+                            <TooltipContent>
+                                This tooltip is keyboard accessible.
+                            </TooltipContent>
+                        </Tooltip>
+                    </TooltipProvider>
+                </div>
+
+                <div className="space-y-4 rounded-xl border p-6">
+                    <h2 className="text-lg font-medium">
+                        Modal and drawer wrappers
+                    </h2>
+                    <div className="flex flex-wrap gap-2">
+                        <Button onClick={() => setModalOpen(true)}>
+                            Open modal
+                        </Button>
+                        <Button
+                            variant="secondary"
+                            onClick={() => setDrawerOpen(true)}
+                        >
+                            Open drawer
+                        </Button>
+                    </div>
+                </div>
+            </section>
+
+            <Modal
+                open={modalOpen}
+                onOpenChange={setModalOpen}
+                title="Confirm corpus lock"
+                description="This modal uses the shared dialog primitive with the task-specified animation timing."
+                footer={
+                    <>
+                        <Button
+                            variant="ghost"
+                            onClick={() => setModalOpen(false)}
+                        >
+                            Cancel
+                        </Button>
+                        <Button onClick={() => setModalOpen(false)}>
+                            Confirm
+                        </Button>
+                    </>
+                }
+            >
+                <p className="text-sm text-muted-foreground">
+                    Modal content can include any stateless form or explanation
+                    required by the workflow.
+                </p>
+            </Modal>
+
+            <Drawer
+                open={drawerOpen}
+                onOpenChange={setDrawerOpen}
+                title="Review details"
+                description="This drawer uses the shared sheet primitive with a 480px layout."
+                footer={
+                    <Button
+                        variant="secondary"
+                        onClick={() => setDrawerOpen(false)}
+                    >
+                        Close drawer
+                    </Button>
+                }
+            >
+                <div className="space-y-3 text-sm text-muted-foreground">
+                    <p>
+                        Drawers are useful for side-panel workflows that keep
+                        the page context visible.
+                    </p>
+                    <p>
+                        The wrapper supports escape key and outside click
+                        configuration through props.
+                    </p>
+                </div>
+            </Drawer>
         </div>
-      </section>
-
-      <section>
-        <h2 className="text-lg font-semibold mb-4">Inputs</h2>
-        <div className="space-y-6">
-          <div className="space-y-4">
-            <h3 className="font-medium">Text Input</h3>
-            <div className="space-y-2">
-              <Input placeholder="Default input" defaultValue="Sample text" />
-              <Input placeholder="Error state" className="border-destructive" aria-invalid="true" />
-              <Input placeholder="Disabled input" disabled defaultValue="Cannot edit" />
-            </div>
-          </div>
-
-          <div className="space-y-4">
-            <h3 className="font-medium">Textarea</h3>
-            <div className="space-y-2">
-              <Textarea placeholder="Default textarea" defaultValue="Sample textarea content\nMultiple lines" />
-              <Textarea placeholder="Error state" className="border-destructive" aria-invalid="true" />
-              <Textarea placeholder="Disabled textarea" disabled defaultValue="Cannot edit" />
-            </div>
-          </div>
-
-          <div className="space-y-4">
-            <h3 className="font-medium">Select</h3>
-            <div className="space-y-2">
-              <Select value={selectValue} onValueChange={setSelectValue}>
-                <SelectTrigger>
-                  <SelectValue placeholder="Select an option" />
-                </SelectTrigger>
-                <SelectContent>
-                  <SelectLabel>Select an option</SelectLabel>
-                  <SelectItem value="option1">Option 1</SelectItem>
-                  <SelectItem value="option2">Option 2</SelectItem>
-                  <SelectItem value="option3">Option 3</SelectItem>
-                </SelectContent>
-              </Select>
-            </div>
-          </div>
-
-          <div className="space-y-4">
-            <h3 className="font-medium">Checkbox</h3>
-            <div className="flex items-center space-x-2">
-              <Checkbox
-                checked={checkboxChecked}
-                onCheckedChange={setCheckboxChecked}
-                aria-label="Example checkbox"
-              />
-              <span>Checkbox label</span>
-            </div>
-            <div className="space-y-2">
-              <Checkbox disabled checked defaultChecked aria-label="Disabled checked checkbox" />
-              <span className="ml-2">Disabled and checked</span>
-            </div>
-            <div className="space-y-2">
-              <Checkbox disabled aria-label="Disabled unchecked checkbox" />
-              <span className="ml-2">Disabled and unchecked</span>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <section>
-        <h2 className="text-lg font-semibold mb-4">Chip / Badge</h2>
-        <div className="flex flex-wrap gap-4">
-          <div className="space-y-2">
-            <h3 className="font-medium">Variants</h3>
-            <div className="flex flex-wrap gap-2">
-              <Chip variant="info">Info</Chip>
-              <Chip variant="success">Success</Chip>
-              <Chip variant="warning">Warning</Chip>
-              <Chip variant="error">Error</Chip>
-              <Chip variant="muted">Muted</Chip>
-            </div>
-          </div>
-
-          <div className="space-y-2">
-            <h3 className="font-medium">With Icon</h3>
-            <div className="flex flex-wrap gap-2">
-              <Chip variant="info" icon={<svg className="h-3 w-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>}>Info with icon</Chip>
-              <Chip variant="success" icon={<svg className="h-3 w-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7" /></svg>}>Success with icon</Chip>
-            </div>
-          </div>
-
-          <div className="space-y-2">
-            <h3 className="font-medium">Dismissible</h3>
-            <div className="flex flex-wrap gap-2">
-              <Chip variant="info" icon={<svg className="h-3 w-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>}>Dismissible info</Chip>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <section>
-        <h2 className="text-lg font-semibold mb-4">Tooltip</h2>
-        <div className="space-y-4">
-          <div className="flex items-center space-x-4">
-            <TooltipProvider>
-              <Tooltip asChild>
-                <TooltipTrigger>
-                  <Button variant="outline" size="icon" aria-label="Button with tooltip">
-                    <svg className="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 12l2 2 4-4M7.5 10L13 4.5m0 0l4.5 4.5M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-                    </svg>
-                  </Button>
-                </TooltipTrigger>
-                <TooltipContent sideOffset={5}>
-                  This is a tooltip on hover/focus
-                </TooltipContent>
-              </Tooltip>
-            </TooltipProvider>
-
-            <TooltipProvider>
-              <Tooltip asChild>
-                <TooltipTrigger>
-                  <Button variant="outline">Hover me for tooltip</Button>
-                </TooltipTrigger>
-                <TooltipContent sideOffset={5}>
-                  This tooltip appears on button hover
-                </TooltipContent>
-              </Tooltip>
-            </TooltipProvider>
-          </div>
-        </div>
-      </section>
-    </div>
-  )
+    );
 }
+
+export default UIShowcase;

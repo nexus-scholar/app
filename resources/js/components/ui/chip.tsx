@@ -27,6 +27,7 @@ interface ChipProps extends React.ComponentProps<"div">,
   variant?: "info" | "success" | "warning" | "error" | "muted"
   icon?: React.ReactNode
   onDismiss?: () => void
+  dismissLabel?: string
   className?: string
 }
 
@@ -35,6 +36,7 @@ function Chip({
   variant,
   icon,
   onDismiss,
+  dismissLabel = "Dismiss",
   ...props
 }: ChipProps) {
   return (
@@ -44,14 +46,15 @@ function Chip({
       {...props}
     >
       {icon && (
-        <span className="mr-2 h-4 w-4 shrink-0">{icon}</span>
+          <span className="h-4 w-4 shrink-0">{icon}</span>
       )}
-      <span className="">{props.children}</span>
+      <span>{props.children}</span>
       {onDismiss ? (
         <button
+          type="button"
           onClick={onDismiss}
-          className="ml-2 flex h-4 w-4 items-center justify-center rounded-md text-muted-foreground hover:bg-muted/50"
-          aria-label="Dismiss"
+          className="ml-1 inline-flex size-4 items-center justify-center rounded-md text-muted-foreground transition-colors hover:bg-muted/50 hover:text-foreground focus-visible:ring-[3px] focus-visible:ring-ring/50 focus-visible:outline-none"
+          aria-label={dismissLabel}
         >
           <XIcon className="h-2 w-2" />
         </button>
